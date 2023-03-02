@@ -1,1 +1,35 @@
-<p>login works!</p>
+<div class="ltf-w-3 ltf-center ltf-ptop-3">
+    <nz-card [nzTitle]="loginCardTitle">
+        <ng-template #loginCardTitle>
+            <div class="ltf-txt-center">
+                <h1>LTF Financeiro</h1>
+            </div>
+        </ng-template>
+        <form nz-form [formGroup]="loginForm" (ngSubmit)="login()">
+            <nz-form-item>
+                <nz-form-control nzErrorTip="Informe o email ou nome de usuário">
+                    <nz-input-group nzPrefixIcon="user">
+                        <input type="text" nz-input formControlName="userNameOrUserEmail"
+                            placeholder="Email ou nome de usuário" />
+                    </nz-input-group>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-control nzErrorTip="Informe a senha">
+                    <nz-input-group nzPrefixIcon="lock" [nzSuffix]="iconSuffixTemplate">
+                        <input [type]="passwordVisible ? 'text' : 'password'" nz-input formControlName="userPassword"
+                            placeholder="Senha" />
+                    </nz-input-group>
+                    <ng-template #iconSuffixTemplate>
+                        <span nz-icon class="ltf-clickable" *ngIf="passwordVisible" [nzType]="'eye-invisible'" (click)="passwordVisible = !passwordVisible"></span>
+                        <span nz-icon class="ltf-clickable" *ngIf="!passwordVisible" [nzType]="'eye'" (click)="passwordVisible = !passwordVisible"></span>
+                    </ng-template>
+                </nz-form-control>
+            </nz-form-item>
+            <button nz-button nzBlock [nzType]="'primary'">Login</button>
+            <div class="ltf-txt-center ltf-ptop-1">
+                <a>Cadastre-se</a>
+            </div>
+        </form>
+    </nz-card>
+</div>
