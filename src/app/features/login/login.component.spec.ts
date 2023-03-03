@@ -49,7 +49,7 @@ describe('LoginComponent', () => {
 
     const loginForm = component.buildLoginForm();
 
-    expect(loginForm.controls.userNameOrUserEmail).toBeTruthy();
+    expect(loginForm.controls.userMail).toBeTruthy();
     expect(loginForm.controls.userPassword).toBeTruthy();
   });
 });
