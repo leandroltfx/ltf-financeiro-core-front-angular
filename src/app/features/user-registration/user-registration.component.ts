@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'ltf-user-registration',
@@ -11,6 +11,8 @@ export class UserRegistrationComponent implements OnInit {
   passwordVisible: boolean = false;
   confirmPasswordVisible: boolean = false;
   userRegistrationForm!: FormGroup;
+  patterEmail: RegExp = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
+  maxLength: number = 80;
 
   constructor(
     private formBuilder: FormBuilder
@@ -23,13 +25,26 @@ export class UserRegistrationComponent implements OnInit {
   buildUserRegistrationForm(): FormGroup {
     return this.formBuilder.group(
       {
-        userName: [null, [Validators.required]],
-        userMail: [null, [Validators.required]],
-        userPassword: [null, [Validators.required]],
-        confirmUserPassword: [null, [Validators.required]]
+        userName: [null, [Validators.required, Validators.maxLength(this.maxLength)]],
+        userMail: [null, [Validators.required, Validators.maxLength(this.maxLength), Validators.pattern(this.patterEmail)]],
+        userPassword: [null, [Validators.required, Validators.maxLength(this.maxLength)]],
+        confirmUserPassword: [null, [Validators.required, this.confirmationValidator]]
       }
     );
   }
+
+  updateConfirmValidator(): void {
+    Promise.resolve().then(() => this.userRegistrationForm.controls.confirmUserPassword.updateValueAndValidity());
+  }
+
+  confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
+    if (!control.value) {
+      return { required: true };
+    } else if (control.value !== this.userRegistrationForm.controls.userPassword.value) {
+      return { confirm: true, error: true };
+    }
+    return {};
+  };
 
   registerUser(): void { 
     if (this.userRegistrationForm.valid) { }

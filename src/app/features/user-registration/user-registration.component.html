@@ -7,26 +7,33 @@
         </ng-template>
         <form nz-form [formGroup]="userRegistrationForm" (ngSubmit)="registerUser()">
             <nz-form-item>
-                <nz-form-control nzErrorTip="Informe seu nome">
+                <nz-form-control [nzErrorTip]="errorUserNameTemplate">
                     <nz-input-group nzPrefixIcon="user">
-                        <input type="text" nz-input formControlName="userName"
-                            placeholder="Nome" />
+                        <input type="text" nz-input formControlName="userName" placeholder="Nome" />
                     </nz-input-group>
+                    <ng-template #errorUserNameTemplate let-control>
+                        <ng-container *ngIf="control.hasError('required')">Informe seu nome</ng-container>
+                        <ng-container *ngIf="control.hasError('maxlength')">Limite de {{ maxLength }} caracteres ultrapassado</ng-container>
+                    </ng-template>
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-                <nz-form-control nzErrorTip="Informe seu email">
+                <nz-form-control [nzErrorTip]="errorMailTemplate">
                     <nz-input-group nzPrefixIcon="mail">
-                        <input type="email" nz-input formControlName="userMail"
-                            placeholder="Email" />
+                        <input type="email" nz-input formControlName="userMail" placeholder="Email" />
                     </nz-input-group>
+                    <ng-template #errorMailTemplate let-control>
+                        <ng-container *ngIf="control.hasError('required')">Informe seu email</ng-container>
+                        <ng-container *ngIf="control.hasError('pattern')">Email inválido</ng-container>
+                        <ng-container *ngIf="control.hasError('maxlength')">Limite de {{ maxLength }} caracteres ultrapassado</ng-container>
+                    </ng-template>
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-                <nz-form-control nzErrorTip="Informe a senha">
+                <nz-form-control [nzErrorTip]="errorPasswordTemplate">
                     <nz-input-group nzPrefixIcon="lock" [nzSuffix]="iconPasswordSuffixTemplate">
                         <input [type]="passwordVisible ? 'text' : 'password'" nz-input formControlName="userPassword"
-                            placeholder="Senha" />
+                            placeholder="Senha" (ngModelChange)="updateConfirmValidator()" />
                     </nz-input-group>
                     <ng-template #iconPasswordSuffixTemplate>
                         <span nz-icon class="ltf-clickable" *ngIf="passwordVisible" [nzType]="'eye-invisible'"
@@ -34,19 +41,27 @@
                         <span nz-icon class="ltf-clickable" *ngIf="!passwordVisible" [nzType]="'eye'"
                             (click)="passwordVisible = !passwordVisible"></span>
                     </ng-template>
+                    <ng-template #errorPasswordTemplate let-control>
+                        <ng-container *ngIf="control.hasError('required')">Informe a senha</ng-container>
+                        <ng-container *ngIf="control.hasError('maxlength')">Limite de {{ maxLength }} caracteres ultrapassado</ng-container>
+                    </ng-template>
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-                <nz-form-control nzErrorTip="Confirme a senha">
+                <nz-form-control [nzErrorTip]="errorConfirmPasswordTemplate">
                     <nz-input-group nzPrefixIcon="lock" [nzSuffix]="iconConfirmPasswordSuffixTemplate">
-                        <input [type]="confirmPasswordVisible ? 'text' : 'password'" nz-input formControlName="confirmUserPassword"
-                            placeholder="Confirme a senha" />
+                        <input [type]="confirmPasswordVisible ? 'text' : 'password'" nz-input
+                            formControlName="confirmUserPassword" placeholder="Confirme a senha" />
                     </nz-input-group>
                     <ng-template #iconConfirmPasswordSuffixTemplate>
                         <span nz-icon class="ltf-clickable" *ngIf="confirmPasswordVisible" [nzType]="'eye-invisible'"
                             (click)="confirmPasswordVisible = !confirmPasswordVisible"></span>
                         <span nz-icon class="ltf-clickable" *ngIf="!confirmPasswordVisible" [nzType]="'eye'"
                             (click)="confirmPasswordVisible = !confirmPasswordVisible"></span>
+                    </ng-template>
+                    <ng-template #errorConfirmPasswordTemplate let-control>
+                        <ng-container *ngIf="control.hasError('required')">Confirme a senha</ng-container>
+                        <ng-container *ngIf="control.hasError('confirm')">Senhas inconsistentes</ng-container>
                     </ng-template>
                 </nz-form-control>
             </nz-form-item>
