@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ltf-login',
@@ -12,7 +13,8 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -29,7 +31,9 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void { 
-    if (this.loginForm.valid) { }
+    if (this.loginForm.valid) { 
+      this.router.navigate(['/home']);
+    }
   }
 
 }
