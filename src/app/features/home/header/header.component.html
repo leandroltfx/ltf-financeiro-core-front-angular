@@ -1,0 +1,16 @@
+<div class="ltf-flex ltf-flex-space-between header">
+    <div class="ltf-w-15 ltf-txt-center">
+        <img src="assets/image/logo.jpg" alt="logo" width="100" height="100">
+    </div>
+    <div class="ltf-p-2">
+        <button nz-button nz-dropdown [nzDropdownMenu]="dropdownConfig" nzPlacement="bottomRight">
+            Nome do usuário logado
+        </button>
+        <nz-dropdown-menu #dropdownConfig="nzDropdownMenu">
+            <ul nz-menu>
+                <li nz-menu-item>Configurações</li>
+                <li nz-menu-item [routerLink]="['/login']">Sair</li>
+            </ul>
+        </nz-dropdown-menu>
+    </div>
+</div>
