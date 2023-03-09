@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
-import { LoginService } from './login.service';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 @Component({
   selector: 'ltf-login',
@@ -18,8 +18,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private loginService: LoginService,
-    private nzMessageService: NzMessageService
+    private nzMessageService: NzMessageService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
 
   login(): void { 
     if (this.loginForm.valid) {
-      this.loginService.login(
+      this.authService.login(
         this.loginForm.controls.userMail.value,
         this.loginForm.controls.userPassword.value
       ).subscribe(

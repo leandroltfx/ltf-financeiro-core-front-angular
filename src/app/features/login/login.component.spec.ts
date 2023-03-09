@@ -17,13 +17,13 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 
 import { LoginComponent } from './login.component';
-import { LoginService } from './login.service';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   let router: Router;
-  let loginService: LoginService;
+  let authService: AuthService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -44,7 +44,7 @@ describe('LoginComponent', () => {
         NzMessageModule
       ],
       providers: [
-        LoginService
+        AuthService
       ]
     })
       .compileComponents();
@@ -55,7 +55,7 @@ describe('LoginComponent', () => {
     component = fixture.componentInstance;
 
     router = TestBed.inject(Router);
-    loginService = TestBed.inject(LoginService);
+    authService = TestBed.inject(AuthService);
 
     fixture.detectChanges();
   });
@@ -75,7 +75,7 @@ describe('LoginComponent', () => {
   it('deve realizar o roteamento para a home após o login', () => {
 
     const spyRouterNavigate = spyOn(router, 'navigate');
-    const spyLoginService = spyOn(loginService, 'login').and.returnValue(
+    const spyAuthService = spyOn(authService, 'login').and.returnValue(
       of(
         {
           message: 'Login efetuado com sucesso!'
@@ -91,14 +91,14 @@ describe('LoginComponent', () => {
     component.login();
 
     expect(spyRouterNavigate).toHaveBeenCalled();
-    expect(spyLoginService).toHaveBeenCalled();
-    expect(spyLoginService).toHaveBeenCalledWith('user@mail.com', 'asd123');
+    expect(spyAuthService).toHaveBeenCalled();
+    expect(spyAuthService).toHaveBeenCalledWith('user@mail.com', 'asd123');
   });
 
   it('não deve realizar o roteamento para a home após o login se o email do formulário não estiver preenchido', () => {
 
     const spyRouterNavigate = spyOn(router, 'navigate');
-    const spyLoginService = spyOn(loginService, 'login');
+    const spyAuthService = spyOn(authService, 'login');
 
     component.loginForm = component.buildLoginForm();
 
@@ -108,13 +108,13 @@ describe('LoginComponent', () => {
     component.login();
 
     expect(spyRouterNavigate).not.toHaveBeenCalled();
-    expect(spyLoginService).not.toHaveBeenCalled();
+    expect(spyAuthService).not.toHaveBeenCalled();
   });
 
   it('não deve realizar o roteamento para a home após o login se a senha do formulário não estiver preenchido', () => {
 
     const spyRouterNavigate = spyOn(router, 'navigate');
-    const spyLoginService = spyOn(loginService, 'login');
+    const spyAuthService = spyOn(authService, 'login');
 
     component.loginForm = component.buildLoginForm();
 
@@ -124,13 +124,13 @@ describe('LoginComponent', () => {
     component.login();
 
     expect(spyRouterNavigate).not.toHaveBeenCalled();
-    expect(spyLoginService).not.toHaveBeenCalled();
+    expect(spyAuthService).not.toHaveBeenCalled();
   });
 
   it('não deve realizar o roteamento para a home após o login se o formulário não estiver preenchido', () => {
 
     const spyRouterNavigate = spyOn(router, 'navigate');
-    const spyLoginService = spyOn(loginService, 'login');
+    const spyAuthService = spyOn(authService, 'login');
 
     component.loginForm = component.buildLoginForm();
 
@@ -140,6 +140,6 @@ describe('LoginComponent', () => {
     component.login();
 
     expect(spyRouterNavigate).not.toHaveBeenCalled();
-    expect(spyLoginService).not.toHaveBeenCalled();
+    expect(spyAuthService).not.toHaveBeenCalled();
   });
 });

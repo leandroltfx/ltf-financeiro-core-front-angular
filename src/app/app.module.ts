@@ -11,6 +11,7 @@ import { pt_BR } from 'ng-zorro-antd/i18n';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CoreModule } from './core/core.module';
 
 registerLocaleData(pt);
 
@@ -24,6 +25,7 @@ registerLocaleData(pt);
     FormsModule,
     HttpClientModule,
 
+    CoreModule,
     AppRoutingModule,
   ],
   providers: [{ provide: NZ_I18N, useValue: pt_BR }],

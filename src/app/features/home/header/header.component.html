@@ -4,12 +4,12 @@
     </div>
     <div class="ltf-p-2">
         <button nz-button nz-dropdown [nzDropdownMenu]="dropdownConfig" nzPlacement="bottomRight">
-            Nome do usuário logado
+            {{ loggedUser.userName }}
         </button>
         <nz-dropdown-menu #dropdownConfig="nzDropdownMenu">
             <ul nz-menu>
                 <li nz-menu-item>Configurações</li>
-                <li nz-menu-item [routerLink]="['/login']">Sair</li>
+                <li nz-menu-item (click)="logout()">Sair</li>
             </ul>
         </nz-dropdown-menu>
     </div>
