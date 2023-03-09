@@ -9,9 +9,11 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
+import { LoginService } from './login.service';
 
 @NgModule({
   declarations: [
@@ -28,8 +30,12 @@ import { LoginComponent } from './login.component';
     NzIconModule,
     NzDividerModule,
     NzTypographyModule,
+    NzMessageModule,
 
     LoginRoutingModule
+  ],
+  providers: [
+    LoginService
   ]
 })
 export class LoginModule { }
