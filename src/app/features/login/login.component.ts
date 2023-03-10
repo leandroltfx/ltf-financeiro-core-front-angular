@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
         this.loginForm.controls.userPassword.value
       ).subscribe(
         dataResult => {
-          this.nzMessageService.success(dataResult.message);
+          this.nzMessageService.success(dataResult);
           this.router.navigate(['/home']);
         },
         dataError => {

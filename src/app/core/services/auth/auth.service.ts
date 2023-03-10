@@ -27,7 +27,7 @@ export class AuthService {
       .pipe(
         map((response: any) => {
           this.loggedUser = response.loggedUser;
-          return response;
+          return response.message;
         })
       )
   }
